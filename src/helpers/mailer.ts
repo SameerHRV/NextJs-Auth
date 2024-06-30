@@ -9,13 +9,17 @@ const sendMail = async ({ email, emailType, userId }: any) => {
 
     if (emailType === "VERIFY") {
       await User.findByIdAndUpdate(userId, {
-        verificationToken: hashedToken,
-        verificationExpires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7), // 7 days
+        $set: {
+          verificationToken: hashedToken,
+          verificationExpires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7), // 7 days
+        },
       });
     } else if (emailType === "RESET PASSWORD") {
       await User.findByIdAndUpdate(userId, {
-        forgotPasswordToken: hashedToken,
-        forgotPasswordExpires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 20), // 20 days
+        $set: {
+          forgotPasswordToken: hashedToken,
+          forgotPasswordExpires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 20), // 20 days
+        },
       });
     }
 

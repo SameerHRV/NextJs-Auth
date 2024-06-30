@@ -5,23 +5,15 @@ import { NextRequest, NextResponse } from "next/server";
 
 connToDb();
 
-export async function GET(req: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
-    const userId = getDataFromToken(req);
-    const user = await User.findOne({
-      _id: userId,
-    }).select("-password");
-
+    const userId = await getDataFromToken(req);
+    const user = await User.findOne({ _id: userId }).select("-password");
     return NextResponse.json({
-      statusCode: 200,
-      message: "User Fetch Successfully",
+      mesaaage: "User found",
       data: user,
     });
   } catch (error: any) {
-    return NextResponse.json({
-      statusCode: 500,
-      message: "Something went worng while to verify user",
-      error: error.message,
-    });
+    return NextResponse.json({ error: error.message }, { status: 400 });
   }
 }

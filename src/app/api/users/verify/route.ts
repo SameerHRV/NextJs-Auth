@@ -32,7 +32,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       statusCode: 200,
       message: "User Verified Successfully",
-      data: savedUser,
     });
   } catch (error: any) {
     return NextResponse.json({
