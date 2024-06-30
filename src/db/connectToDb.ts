@@ -18,7 +18,7 @@ const connToDb = async () => {
     });
 
     const dbIntance = await mongoose.connect(process.env.MONGODB_URI!, {
-      dbName: process.env.MONGODB_DB!,
+      dbName: process.env.MONGODB_NAME!,
     });
 
     console.log("Connected to MongoDB And Its Host", dbIntance.connection.host);
